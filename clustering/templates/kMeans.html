@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    K-Means Clustering
+{% endblock %}
+
+{% block content %}  
+    <div class="text-center text-3xl p-5">
+        K-Means Clustering
+    </div>
+
+    <div class="mx-10 border border-black px-5 rounded-lg">
+        {% for key, val in result.items %}
+        <div class="flex justify-center">
+            <div class="p-5 w-1/3">{{ key }} : </div>
+            <div class="p-5 w-2/3">{{ val }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="m-10 border border-black px-5 rounded-lg flex">
+        {% if cluster_plot %}
+            <div class="m-10 justify-between">
+                <p class="text-2xl text-center">Cluster Plot</p>
+                <img src="data:image/png;base64, {{ cluster_plot|safe }}">
+            </div>
+        {% endif %}
+        {% if elbow_graph %}
+            <div class="m-10 justify-between">
+                <p class="text-2xl text-center">Elbow Graph</p>
+                <img src="data:image/png;base64, {{ elbow_graph|safe }}">
+            </div>
+        {% endif %}
+    </div>
+    <footer class="m-10 border border-black px-5 rounded-lg p-5 text-center">
+        <p>*Silhoutte Score closer to 1 is preferred</p> 
+        <p>This score is between -1 and 1, where the higher the score the more well defined and distinct your clusters are</p>
+    </footer>
+{% endblock %}

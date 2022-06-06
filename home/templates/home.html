@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block content %}
+    <div class="text-center text-3xl p-5">
+        World of Machine Learning Algorithms
+    </div>
+    <div class="m-10 flex">
+        <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
+            <p>Classification</p>
+            <a href="{% url 'Logistic_Reg' %}" class="text-blue-600">Logistic Regression</a>
+        </div>
+        <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
+            <p>Clustering</p>
+            <a href="{% url 'Kmeans' %}" class="text-blue-600">K-Means Clustering</a>
+        </div>
+    </div>
+{% endblock %}
