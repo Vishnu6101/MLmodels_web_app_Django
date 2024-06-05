@@ -5,3 +5,6 @@ books/__pycache__/
 bookstore/__pycache__/
 *.py[cod]
 db.sqlite3
+uploads
+*.csv
+migrations

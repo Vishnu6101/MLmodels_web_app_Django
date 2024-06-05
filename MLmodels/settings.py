@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-lx0sjgwdcn*ev69t2oo1z=sqy@u+uu#-p)q-y)l%hgyxn8wuy-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') == 'True'
 
-ALLOWED_HOSTS = ['ml-world-1240.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
