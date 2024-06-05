@@ -8,6 +8,18 @@
     <div class="text-center text-3xl p-5">
         Machine Learning Algorithms
     </div>
+
+    <div class="m-10">
+        <div class="text-center p-10 border border-black rounded-lg mx-5">
+            <p>Create a new Experiment</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ create_exp_form.as_p }}
+                <button type="submit">Create</button>
+            </form>
+        </div>
+    </div>
+    
     <div class="m-10 flex">
         <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
             <p>Classification</p>
