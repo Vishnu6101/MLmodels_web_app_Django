@@ -1,15 +1,36 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .classificationModels import Logistic_Regression
+
+from .classificationModels import (
+    Logistic_Regression, 
+    DecisionTree_Classifier, 
+    RandomForest_Classifier,
+    KNN_Classifier)
+
+
 from .forms import FileUploadForm
 from .models import FileUpload
 
 # Create your views here.
-def LogisticReg(request):
+def LogisticRegressionModel(request):
     classificationResult = Logistic_Regression()
-    # titles = list(['Accuracy', 'Precision', 'Recall', 'F_Score', 'Confusion Matrix', 'Data Columns', 'path'])
-    context = {'result' : classificationResult}
-    return render(request, 'logisticRegression.html', context)
+    context = {'result' : classificationResult, 'Algorithm' : 'Logistic Regression'}
+    return render(request, 'classification.html', context)
+
+def DecisionTreeClassifierModel(request):
+    classificationResult = DecisionTree_Classifier()
+    context = {'result' : classificationResult, 'Algorithm' : 'DecisionTree Classifier'}
+    return render(request, 'classification.html', context)
+
+def RandomForestClassifierModel(request):
+    classificationResult = RandomForest_Classifier()
+    context = {'result' : classificationResult, 'Algorithm' : 'RandomForest Classifier'}
+    return render(request, 'classification.html', context)
+
+def KNNClassifierModel(request):
+    classificationResult = KNN_Classifier()
+    context = {'result' : classificationResult, 'Algorithm' : 'K-Nearest Neighbors Classifier'}
+    return render(request, 'classification.html', context)
 
 def upload_file(request):
     if request.method == 'POST':
