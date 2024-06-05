@@ -4,6 +4,17 @@ from sklearn.preprocessing import StandardScaler, OrdinalEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+
+classification_models = {
+    "Logistic Regression" : LogisticRegression(),
+    "Decision Tree Classifier" : DecisionTreeClassifier(),
+    "Random Forest Classifier" : RandomForestClassifier(),
+    "KNN Classifier" : KNeighborsClassifier()
+}
 
 def extract_num_cat(data):
     numerical_features = data.select_dtypes(include=['number']).columns.tolist()

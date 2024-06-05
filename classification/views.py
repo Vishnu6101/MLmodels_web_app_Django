@@ -1,35 +1,34 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from .classificationModels import (
-    Logistic_Regression, 
-    DecisionTree_Classifier, 
-    RandomForest_Classifier,
-    KNN_Classifier)
-
+from .classificationModels import Build_Classifier
 
 from .forms import FileUploadForm
 from .models import FileUpload
 
 # Create your views here.
 def LogisticRegressionModel(request):
-    classificationResult = Logistic_Regression()
-    context = {'result' : classificationResult, 'Algorithm' : 'Logistic Regression'}
+    model = 'Logistic Regression'
+    classificationResult = Build_Classifier(model=model)
+    context = {'result' : classificationResult, 'Algorithm' : model}
     return render(request, 'classification.html', context)
 
 def DecisionTreeClassifierModel(request):
-    classificationResult = DecisionTree_Classifier()
-    context = {'result' : classificationResult, 'Algorithm' : 'DecisionTree Classifier'}
+    model = "Decision Tree Classifier"
+    classificationResult = Build_Classifier(model=model)
+    context = {'result' : classificationResult, 'Algorithm' : model}
     return render(request, 'classification.html', context)
 
 def RandomForestClassifierModel(request):
-    classificationResult = RandomForest_Classifier()
-    context = {'result' : classificationResult, 'Algorithm' : 'RandomForest Classifier'}
+    model = "Random Forest Classifier"
+    classificationResult = Build_Classifier(model=model)
+    context = {'result' : classificationResult, 'Algorithm' : model}
     return render(request, 'classification.html', context)
 
 def KNNClassifierModel(request):
-    classificationResult = KNN_Classifier()
-    context = {'result' : classificationResult, 'Algorithm' : 'K-Nearest Neighbors Classifier'}
+    model = "KNN Classifier"
+    classificationResult = Build_Classifier(model=model)
+    context = {'result' : classificationResult, 'Algorithm' : model}
     return render(request, 'classification.html', context)
 
 def upload_file(request):
