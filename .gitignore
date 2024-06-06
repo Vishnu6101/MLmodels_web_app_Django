@@ -6,8 +6,9 @@ bookstore/__pycache__/
 *.py[cod]
 db.sqlite3
 uploads
-*.csv
 migrations
 mlruns
 media
 .vscode
+.pytest_cache
+__pycache__

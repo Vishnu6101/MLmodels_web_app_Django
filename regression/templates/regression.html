@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ Algorithm }}
+{% endblock %}
+
+{% block content %}  
+    <div class="text-center text-3xl p-5">
+        {{ Algorithm }}
+    </div>
+
+    <div class="mx-10 border border-black px-5 rounded-lg flex">
+        <h2>Upload File to S3</h2>
+        <a class="text-blue-600" href="{% url 'upload_file' %}">File Upload</a>
+    </div>
+
+    <div class="mx-10 border border-black px-5 rounded-lg">
+        {% for key, val in result.items %}
+        <div class="flex justify-center">
+            <div class="p-5 w-1/3">{{ key }} : </div>
+            <div class="p-5 w-2/3">{{ val }}</div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

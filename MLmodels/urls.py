@@ -20,5 +20,6 @@ urlpatterns = [
     path('', include('home.urls')),
     path('models/classification/', include('classification.urls')), 
     path('models/clustering/', include('clustering.urls')), 
+    path('models/regression/', include('regression.urls')),
     path('admin/', admin.site.urls),
 ]
