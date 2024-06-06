@@ -9,6 +9,7 @@
         File Upload
     </div>
 
+    {% if fileform %}
     <div class="mx-10 border border-black px-5 rounded-lg">
         <h2>Upload File</h2>
         <form method="post" enctype="multipart/form-data">
@@ -17,4 +18,28 @@
             <button type="submit">Upload</button>
         </form>
     </div>
+    {% endif %}
+
+    <a href="{% url 'list_files' %}">list all files</a>
+
+    {% if files %}
+    <div class="mx-10 border border-black px-5 rounded-lg">
+        <h2>Uploaded Files</h2>
+        <form method="post">
+            {% csrf_token %}
+            <ul>
+                {% for file in files %}
+                    <li>
+                        <input type="radio" name="selected_file" value="{{ file }}" required> {{ file }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <button type="submit">Select File</button>
+        </form>
+    </div>
+    {% endif %}
+
+    {% if selected_file %}
+    {{ selected_file }}
+    {% endif %}
 {% endblock %}
