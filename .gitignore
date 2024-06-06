@@ -10,3 +10,4 @@ uploads
 migrations
 mlruns
 media
+.vscode
