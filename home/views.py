@@ -25,7 +25,7 @@ def create_exp(request):
             # print(text)
             new_experiment = create_mlflow_experiment(experiment_name=text)
             constant.experiment_name = text
-            return render(request, 'home.html')
+            return render(request, 'home.html', {"experiment" : constant.experiment_name})
     else:
         create_exp_form = CreateExperimentForm()
-    return render(request, 'home.html', {'create_exp_form': create_exp_form})
+    return render(request, 'home.html', {'create_exp_form': create_exp_form, "experiment" : constant.experiment_name})

@@ -14,9 +14,13 @@
             <p>Create a new Experiment</p>
             <form method="post">
                 {% csrf_token %}
-                {{ create_exp_form.as_p }}
+                <div>
+                    <label for="id_name">Name:</label>
+                    {{ create_exp_form.name }}
+                </div>
                 <button type="submit">Create</button>
             </form>
+            <p>Using <b>{{ experiment }}</b> for tracking</p>
         </div>
     </div>
     
@@ -41,6 +45,11 @@
         <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
             <p>Clustering</p>
             <a href="{% url 'Kmeans' %}" class="text-blue-600">K-Means Clustering</a>
+        </div>
+
+        <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
+            <p>Forecasting</p>
+            <!-- <a href="{% url 'Kmeans' %}" class="text-blue-600">K-Means Clustering</a> -->
         </div>
     </div>
 {% endblock %}

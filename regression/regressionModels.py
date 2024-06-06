@@ -27,20 +27,20 @@ def Build_Regressor(model):
         Y = data['Price']
 
         numerical_features, categorical_features = extract_num_cat(X)
-        print(numerical_features, categorical_features)
+        # print(numerical_features, categorical_features)
 
         # Build the preprocessing pipeline
         preprocessing_pipeline = default_preprocessing_pipeline(numerical_features, categorical_features)
-        print(preprocessing_pipeline)
+        # print(preprocessing_pipeline)
 
         preprocessing_pipeline.fit(X, Y)
         X_transformed = preprocessing_pipeline.transform(X)
 
         # train - test split
         X_train, X_test, Y_train, Y_test = train_test_split(X_transformed, Y, train_size=0.8, random_state=42)
-        print(X_train, X_test)
+        # print(X_train, X_test)
 
-        print(Y_train)
+        # print(Y_train)
 
         # fit the model
         prediction_model = regression_models[model]
