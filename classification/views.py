@@ -36,7 +36,7 @@ def upload_file(request):
         fileform = FileUploadForm(request.POST, request.FILES)
         if fileform.is_valid():
             fileform.save()
-            return redirect('Logistic_Reg')
+            return redirect('Logistic_Regression')
     else:
         fileform = FileUploadForm()
     return render(request, 'file_upload.html', {'fileform': fileform})
