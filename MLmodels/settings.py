@@ -29,10 +29,10 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') == 'True'
 ALLOWED_HOSTS = ['localhost']
 
 # AWS Credentials
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KET_ID', None)
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', None)
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', None)
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', None)
-AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', None)
+# AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', None)
 
 # Application definition
 

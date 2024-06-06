@@ -7,7 +7,9 @@ from .classificationModels import Build_Classifier
 from .forms import FileUploadForm
 from .models import FileUpload
 
-import boto3
+from utils import S3_Connection
+
+import os
 
 # Create your views here.
 def LogisticRegressionModel(request):
@@ -38,21 +40,14 @@ def upload_file(request):
     if request.method == 'POST':
         fileform = FileUploadForm(request.POST, request.FILES)
         if fileform.is_valid():
-            # fileform.save()
-            # document = fileform.save(commit=False)
             file = request.FILES['upload']
             
             # Upload to S3
-            s3 = boto3.client(
-                's3',
-                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-                region_name=settings.AWS_S3_REGION_NAME
-            )
-            s3.upload_fileobj(file, settings.AWS_STORAGE_BUCKET_NAME, file.name)
+            s3 = S3_Connection()
+            upload_location = os.path.join('files', file.name)
+            # print(upload_location)
+            s3.upload_fileobj(file, settings.AWS_STORAGE_BUCKET_NAME, upload_location)
             
-            # Save the document to the database
-            # document.save()
             return redirect('Logistic_Reg')
     else:
         fileform = FileUploadForm()
@@ -60,6 +55,5 @@ def upload_file(request):
 
 
 # TODO : 
-# 1. save the file in S3
 # 2. list all the saved files
 # 3. select the required file and load it from S3 and use it for model building
