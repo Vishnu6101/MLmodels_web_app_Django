@@ -28,6 +28,11 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') == 'True'
 
 ALLOWED_HOSTS = ['localhost']
 
+# AWS Credentials
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', None)
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', None)
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', None)
+# AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', None)
 
 # Application definition
 
@@ -41,7 +46,8 @@ INSTALLED_APPS = [
     'home', 
     'classification',
     'clustering',
-    'regression'
+    'regression',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +133,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None

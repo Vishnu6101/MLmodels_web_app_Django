@@ -22,6 +22,9 @@ from sklearn.metrics import (
     r2_score
 )
 
+import boto3
+from django.conf import settings
+
 classification_models = {
     "Logistic Regression" : LogisticRegression(),
     "Decision Tree Classifier" : DecisionTreeClassifier(),
