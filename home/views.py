@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import CreateExperimentForm
+from .forms import CreateExperimentForm, FileUploadForm
 from .models import CreateExperimentModel
 from mlflow_utils import create_mlflow_experiment
 import mlflow
@@ -25,7 +25,19 @@ def create_exp(request):
             # print(text)
             new_experiment = create_mlflow_experiment(experiment_name=text)
             constant.experiment_name = text
-            return render(request, 'home.html')
+            return render(request, 'home.html', {"experiment" : constant.experiment_name})
     else:
         create_exp_form = CreateExperimentForm()
-    return render(request, 'home.html', {'create_exp_form': create_exp_form})
+    return render(request, 'home.html', {'create_exp_form': create_exp_form, "experiment" : constant.experiment_name})
+
+def upload_dataset(request):
+    if request.method == 'POST':
+        fileform = FileUploadForm(request.POST, request.FILES)
+        if fileform.is_valid():
+            fileform.save()
+
+            # save it to the corresponding folder in s3
+            return redirect('create_exp')
+    else:
+        fileform = FileUploadForm()
+    return render(request, 'upload.html', {'fileform': fileform})

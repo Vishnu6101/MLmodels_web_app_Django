@@ -16,7 +16,7 @@ import constant
 
 from utils import (
     extract_num_cat,
-    calculate_metrics,
+    calculate_metrics_classification,
     default_preprocessing_pipeline,
     classification_models
 )
@@ -60,7 +60,7 @@ def Build_Classifier(model):
         mlflow.log_params(classifier_model.get_params())
 
         # calculate the evaluation metrics
-        accuracy, precision, recall, f_score, cm = calculate_metrics(Y_test, logPredict)
+        accuracy, precision, recall, f_score, cm = calculate_metrics_classification(Y_test, logPredict)
 
         # log metrics
         mlflow.log_metrics(

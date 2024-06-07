@@ -14,23 +14,54 @@
             <p>Create a new Experiment</p>
             <form method="post">
                 {% csrf_token %}
-                {{ create_exp_form.as_p }}
+                <div>
+                    <label for="id_name">Name:</label>
+                    {{ create_exp_form.name }}
+                </div>
                 <button type="submit">Create</button>
             </form>
+            <p>Using <b>{{ experiment }}</b> for tracking</p>
         </div>
     </div>
+
+    <div class="m-10">
+        <div class="text-center p-10 border border-black rounded-lg mx-5">
+            <p>Dataset</p>
+            <a href="{% url 'upload_dataset' %}" class="text-blue-600">Upload Dataset to S3</a><br>
+            <a href="{% url 'upload_dataset' %}" class="text-blue-600">Select Dataset</a><br>
+        </div>
+        <!-- <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
+            <p>Select Dataset</p>
+        </div> -->
+    </div>
+
     
     <div class="m-10 flex">
         <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
+            <p>Regression Algorithms</p>
+            <a href="{% url 'Linear_Regression' %}" class="text-blue-600">Linear Regression</a><br>
+            <a href="{% url 'DecisionTree_Regression' %}" class="text-blue-600">Decision Tree Regression</a><br>
+            <a href="{% url 'RandomForest_Regression' %}" class="text-blue-600">Random Forest Regression</a><br>
+            <a href="{% url 'KNN_Regression' %}" class="text-blue-600">K-Nearest Neighbors Regression</a><br>
+        </div>
+        <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
             <p>Classification</p>
-            <a href="{% url 'Logistic_Reg' %}" class="text-blue-600">Logistic Regression</a><br>
+            <a href="{% url 'Logistic_Regression' %}" class="text-blue-600">Logistic Regression</a><br>
             <a href="{% url 'DecisionTree_Classifier' %}" class="text-blue-600">Decision Tree Classifier</a><br>
             <a href="{% url 'RandomForest_Classifier' %}" class="text-blue-600">Random Forest Classifier</a><br>
             <a href="{% url 'KNN_Classifier' %}" class="text-blue-600">K-Nearest Neighbors Classifier</a><br>
         </div>
+    </div>
+
+    <div class="m-10 flex">
         <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
             <p>Clustering</p>
             <a href="{% url 'Kmeans' %}" class="text-blue-600">K-Means Clustering</a>
+        </div>
+
+        <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
+            <p>Forecasting</p>
+            <!-- <a href="{% url 'Kmeans' %}" class="text-blue-600">K-Means Clustering</a> -->
         </div>
     </div>
 {% endblock %}

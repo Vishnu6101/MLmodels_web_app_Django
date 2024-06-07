@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Logistic Regression
+{% endblock %}
+
+{% block content %}  
+    <div class="text-center text-3xl p-5">
+        File Upload
+    </div>
+
+    <div class="mx-10 border border-black px-5 rounded-lg">
+        <h2>Upload File</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ fileform.as_p }}
+            <div>
+                <p>Select the Task</p>
+                <input type="radio" name="task" value="Regression" required> Regression
+                <input type="radio" name="task" value="Classification" required> Classification
+                <input type="radio" name="task" value="Clustering" required> Clustering
+                <input type="radio" name="task" value="Forecasting" required> Forecasting
+            </div>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+{% endblock %}

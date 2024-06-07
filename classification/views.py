@@ -55,7 +55,7 @@ def upload_file(request):
             upload_location = os.path.join('files', file.name)
             s3_client.upload_fileobj(file, settings.AWS_STORAGE_BUCKET_NAME, upload_location)
             
-            return redirect('Logistic_Reg')
+            return redirect('Logistic_Regression')
     else:
         fileform = FileUploadForm()
     return render(request, 'file_upload.html', {'fileform': fileform})
