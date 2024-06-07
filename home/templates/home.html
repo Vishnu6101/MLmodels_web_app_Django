@@ -23,10 +23,22 @@
             <p>Using <b>{{ experiment }}</b> for tracking</p>
         </div>
     </div>
+
+    <div class="m-10">
+        <div class="text-center p-10 border border-black rounded-lg mx-5">
+            <p>Dataset</p>
+            <a href="{% url 'upload_dataset' %}" class="text-blue-600">Upload Dataset to S3</a><br>
+            <a href="{% url 'upload_dataset' %}" class="text-blue-600">Select Dataset</a><br>
+        </div>
+        <!-- <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
+            <p>Select Dataset</p>
+        </div> -->
+    </div>
+
     
     <div class="m-10 flex">
         <div class="text-center p-10 w-1/2 border border-black rounded-lg mx-5">
-            <p>Regression</p>
+            <p>Regression Algorithms</p>
             <a href="{% url 'Linear_Regression' %}" class="text-blue-600">Linear Regression</a><br>
             <a href="{% url 'DecisionTree_Regression' %}" class="text-blue-600">Decision Tree Regression</a><br>
             <a href="{% url 'RandomForest_Regression' %}" class="text-blue-600">Random Forest Regression</a><br>

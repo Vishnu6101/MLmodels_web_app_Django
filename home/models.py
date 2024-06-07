@@ -6,3 +6,7 @@ class CreateExperimentModel(models.Model):
 
     def __str__(self):
         return self.name
+
+class FileUpload(models.Model):
+    upload = models.FileField(upload_to='uploads/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
