@@ -44,11 +44,11 @@ def Build_Regressor(model):
 
         # fit the model
         prediction_model = regression_models[model]
-        print(prediction_model)
+        # print(prediction_model)
         prediction_model.fit(X_train, Y_train)
         predictions = prediction_model.predict(X_test)
 
-        print(predictions)
+        # print(predictions)
 
         # log model
         mlflow.sklearn.log_model(prediction_model, model)

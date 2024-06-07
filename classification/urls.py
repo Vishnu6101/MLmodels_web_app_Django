@@ -6,6 +6,4 @@ urlpatterns = [
     path('decisiontree', views.DecisionTreeClassifierModel, name="DecisionTree_Classifier"),
     path('randomforest', views.RandomForestClassifierModel, name="RandomForest_Classifier"),
     path('knn', views.KNNClassifierModel, name="KNN_Classifier"),
-    # path('upload', views.upload_file, name='upload_file'),
-    # path('listfiles', views.list_files, name='list_files')
 ]
