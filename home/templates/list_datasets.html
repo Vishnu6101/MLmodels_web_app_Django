@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Datasets
+{% endblock %}
+
+{% block content %}  
+    <div class="text-center text-3xl p-5">
+        Datasets
+    </div>
+
+    {% if files %}
+    <div class="mx-10 border border-black px-5 rounded-lg">
+        <h2>Uploaded Files</h2>
+        <form method="post">
+            {% csrf_token %}
+            <ul>
+                {% for file in files %}
+                    <li>
+                        <input type="radio" name="selected_file" value="{{ file }}" required> {{ file }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <button type="submit">Select File</button>
+        </form>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,15 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import CreateExperimentForm, FileUploadForm
 from .models import CreateExperimentModel
+from django.conf import settings
 from mlflow_utils import create_mlflow_experiment
 import mlflow
 
 import constant
 
-# Create your views here.
-# def home(request):
-#     # new_experiment = create_mlflow_experiment(experiment_name="Experiment 1")
-#     return render(request, 'home.html')
+import pandas as pd
+import boto3
+import os
+
+s3_client = boto3.client(
+                's3',
+                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+            )
 
 
 def create_exp(request):
@@ -34,10 +40,44 @@ def upload_dataset(request):
     if request.method == 'POST':
         fileform = FileUploadForm(request.POST, request.FILES)
         if fileform.is_valid():
-            fileform.save()
 
             # save it to the corresponding folder in s3
+            file = request.FILES['upload']
+            folder = request.POST.get('task')
+            
+            # Upload to S3
+            upload_location = os.path.join(folder, file.name)
+            s3_client.upload_fileobj(file, settings.AWS_STORAGE_BUCKET_NAME, upload_location)
+
             return redirect('create_exp')
     else:
         fileform = FileUploadForm()
     return render(request, 'upload.html', {'fileform': fileform})
+
+def list_datasets(request):
+    if request.method == 'POST':
+        file_to_load = request.POST.get('selected_file')
+        
+        if file_to_load:
+            s3_url = f's3://{settings.AWS_STORAGE_BUCKET_NAME}/{file_to_load}'
+            
+            try:
+                # Read the CSV file from the S3 URL using pandas
+                df = pd.read_csv(s3_url)
+            except Exception as e:
+                print("Error", e)
+
+        return redirect('create_exp')
+    
+    else:
+        s3_resource = boto3.resource(
+            's3',
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+        )
+        
+        bucket = s3_resource.Bucket(settings.AWS_STORAGE_BUCKET_NAME)
+        files = [obj.key for obj in bucket.objects.all()]
+        print(files)
+        
+        return render(request, 'list_datasets.html', {'files': files})
