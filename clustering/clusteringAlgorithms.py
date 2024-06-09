@@ -7,9 +7,14 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.metrics import silhouette_score
 
+import matplotlib
+matplotlib.use("Agg")
+
 def Kmeans():
     path = 'clustering/wine-clustering.csv'
     data = pd.read_csv(path)
+
+    print(path)
 
     Scale = StandardScaler().fit_transform(data)
     scaled_data = pd.DataFrame(Scale, columns = data.columns)
@@ -21,7 +26,7 @@ def Kmeans():
 
     silhoutteScore = round(silhouette_score(pca, kmeans.labels_, metric = "euclidean"), 4)
 
-    cluster_polt = clusters(pca, kmeans)
+    cluster_plot = clusters(pca, kmeans)
 
     SSE = []
     for cluster in range(1,20):
@@ -33,7 +38,7 @@ def Kmeans():
     cluster_frame = pd.DataFrame({'Cluster':range(1,20), 'SSE':SSE})
     elbow = elbow_graph(cluster_frame)
 
-    return dict({'File' : path.split('/')[1], 'Data Columns' : data.columns.tolist(), 'Silhoutte Score' : silhoutteScore}), cluster_polt, elbow
+    return dict({'File' : path.split('/')[-1], 'Data Columns' : data.columns.tolist(), 'Silhoutte Score' : silhoutteScore}), cluster_plot, elbow
 
 def clusters(data, model):
     plt.figure()
@@ -54,7 +59,7 @@ def elbow_graph(frame):
 
 def get_graph():
     buffer = BytesIO()
-    plt.savefig(buffer, formt='png')
+    plt.savefig(buffer, format='png')
     buffer.seek(0)
     img = buffer.getvalue()
     graph = base64.b64encode(img)

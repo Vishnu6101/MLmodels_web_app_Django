@@ -15,12 +15,16 @@ from utils import (
     regression_models
 )
 
-def Build_Regressor(model):
+def Build_Regressor(model, path=None):
     experiment = get_mlflow_experiment(experiment_name=constant.experiment_name)
 
     with mlflow.start_run(experiment_id=experiment.experiment_id):
         # load the dataset
-        path = 'regression/car details v4.csv'
+        if path is None:
+            path = 'regression/car details v4.csv'
+
+        print(path)
+        
         data = pd.read_csv(path)
 
         X = data.drop(columns=['Price'], axis = 1)
@@ -59,7 +63,7 @@ def Build_Regressor(model):
         # calculate the evaluation metrics
         mae, mse, rmse, r2 = calculate_metrics_regression(Y_test, predictions)
 
-        print(mse)
+        # print(mse)
 
         # log metrics
         mlflow.log_metrics(
@@ -70,7 +74,7 @@ def Build_Regressor(model):
         )
 
         return dict({
-            'File' : path.split('/')[1], 
+            'File' : path.split('/')[-1], 
             "Mean Square Error" : mse,
             "Mean Absolute Error" : mae,
             "Root Mean Square Error" : rmse, 

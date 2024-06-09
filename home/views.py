@@ -60,12 +60,7 @@ def list_datasets(request):
         
         if file_to_load:
             s3_url = f's3://{settings.AWS_STORAGE_BUCKET_NAME}/{file_to_load}'
-            
-            try:
-                # Read the CSV file from the S3 URL using pandas
-                df = pd.read_csv(s3_url)
-            except Exception as e:
-                print("Error", e)
+            request.session['dataset_url'] = s3_url
 
         return redirect('create_exp')
     
@@ -78,6 +73,5 @@ def list_datasets(request):
         
         bucket = s3_resource.Bucket(settings.AWS_STORAGE_BUCKET_NAME)
         files = [obj.key for obj in bucket.objects.all()]
-        print(files)
         
         return render(request, 'list_datasets.html', {'files': files})

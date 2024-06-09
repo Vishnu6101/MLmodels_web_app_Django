@@ -1,1 +1,0 @@
-web: gunicorn MLmodels.wsgi --log-file -

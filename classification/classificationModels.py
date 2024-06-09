@@ -21,12 +21,14 @@ from utils import (
     classification_models
 )
 
-def Build_Classifier(model):
+def Build_Classifier(model, path=None):
     experiment = get_mlflow_experiment(experiment_name=constant.experiment_name)
 
     with mlflow.start_run(experiment_id=experiment.experiment_id):
         # load the dataset
-        path = 'classification/mushroomsupdated.csv'
+        if path is None:
+            path = 'classification/mushroomsupdated.csv'
+        
         data = pd.read_csv(path)
 
         X = data.drop(columns=['class'], axis = 1)
@@ -71,7 +73,7 @@ def Build_Classifier(model):
         )
 
         return dict({
-            'File' : path.split('/')[1], 
+            'File' : path.split('/')[-1], 
             'Accuracy' : accuracy, 
             'Precision' : precision, 
             'Recall' : recall, 
