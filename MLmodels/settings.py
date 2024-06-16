@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-lx0sjgwdcn*ev69t2oo1z=sqy@u+uu#-p)q-y)l%hgyxn8wuy-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') == 'True'
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 
 # AWS Credentials
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', None)
@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'classification',
     'clustering',
     'regression',
-    'storages'
+    'storages',
+    'whitenoise.runserver_nostatic'
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'MLmodels.urls'
@@ -128,6 +130,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URLS ='/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
