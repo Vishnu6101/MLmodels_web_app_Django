@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import CreateExperimentForm, FileUploadForm
-from .models import CreateExperimentModel
+from .forms import FileUploadForm
 from django.conf import settings
-from mlflow_utils import create_mlflow_experiment
-import mlflow
 
 import constant
 
@@ -17,24 +14,25 @@ s3_client = boto3.client(
                 aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
             )
 
+def home(request):
+    return render(request, 'home.html')
 
-def create_exp(request):
+# def create_exp(request):
     
-    if request.method == 'POST':
+#     if request.method == 'POST':
 
-        create_exp_form = CreateExperimentForm(request.POST)
-        if create_exp_form.is_valid():
-            create_exp_form.save()
+#         create_exp_form = CreateExperimentForm(request.POST)
+#         if create_exp_form.is_valid():
+#             create_exp_form.save()
 
-            # create new exp
-            text = create_exp_form.cleaned_data['name']
-            # print(text)
-            new_experiment = create_mlflow_experiment(experiment_name=text)
-            constant.experiment_name = text
-            return render(request, 'home.html', {"experiment" : constant.experiment_name})
-    else:
-        create_exp_form = CreateExperimentForm()
-    return render(request, 'home.html', {'create_exp_form': create_exp_form, "experiment" : constant.experiment_name})
+#             # create new exp
+#             text = create_exp_form.cleaned_data['name']
+#             # print(text)
+#             constant.experiment_name = text
+#             return render(request, 'home.html', {"experiment" : constant.experiment_name})
+#     else:
+#         create_exp_form = CreateExperimentForm()
+#     return render(request, 'home.html', {'create_exp_form': create_exp_form, "experiment" : constant.experiment_name})
 
 def upload_dataset(request):
     if request.method == 'POST':
@@ -49,7 +47,7 @@ def upload_dataset(request):
             upload_location = os.path.join(folder, file.name)
             s3_client.upload_fileobj(file, settings.AWS_STORAGE_BUCKET_NAME, upload_location)
 
-            return redirect('create_exp')
+            return redirect('home_page')
     else:
         fileform = FileUploadForm()
     return render(request, 'upload.html', {'fileform': fileform})
@@ -62,7 +60,7 @@ def list_datasets(request):
             s3_url = f's3://{settings.AWS_STORAGE_BUCKET_NAME}/{file_to_load}'
             request.session['dataset_url'] = s3_url
 
-        return redirect('create_exp')
+        return redirect('home_page')
     
     else:
         s3_resource = boto3.resource(
